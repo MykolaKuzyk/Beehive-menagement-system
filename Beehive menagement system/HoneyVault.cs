@@ -9,8 +9,8 @@ namespace Beehive_menagement_system
 {
     static class HoneyVault
     {
-        const float NECTAR_CONVERSION_RATIO = .19f;
-        const float LOW_LEVEL_WARNING = 10f;
+        public const float NECTAR_CONVERSION_RATIO = .19f;
+        public const float LOW_LEVEL_WARNING = 10f;
 
 
         private static float honey = 25f;
@@ -30,7 +30,6 @@ namespace Beehive_menagement_system
                  else { return $"Vault report/n {honey} units of honey/n {nectar} units of nectar"; }
             } 
         }
-
         /// <summary>
         /// ConverNectarToHoney method converts nectra to honey using 
         /// NECTAR_CONVERSION_RATIO * amount 
@@ -56,7 +55,7 @@ namespace Beehive_menagement_system
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        private static bool ConsumeHoney(float amount)
+        public static bool ConsumeHoney(float amount)
         {
             if (amount > honey)
             {
