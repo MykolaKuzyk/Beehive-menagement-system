@@ -9,11 +9,11 @@ namespace Beehive_menagement_system
     class Bee 
     {
         public  string  Job { get; private set; }
-        public virtual float CostPerShift { get; protected set;}
+        public virtual float CostPerShift { get; }
 
         public Bee(string job)
         {
-            job = Job;
+            Job = job;
         }
         protected virtual void DoJob()
         {

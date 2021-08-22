@@ -8,11 +8,12 @@ namespace Beehive_menagement_system
 {
     class Queen : Bee
     {
-        private Bee[] workers;
-        private float unassignedWorkers = 0;
+        private Bee[] workers = new Bee[0];
+        private float unassignedWorkers = 3;
         private float eggs = 0;
         const float EGGS_PER_SHIFT = 0.45f;
         const float HONNEY_PER_UNASSIGNED_WORKER = 0.5f;
+        public string StatusReport { get; private set; }
         protected override void DoJob()
         {
             eggs += EGGS_PER_SHIFT;
@@ -20,23 +21,21 @@ namespace Beehive_menagement_system
             {
 
                 WorkTheNextShift(this.CostPerShift);
-                HoneyVault.ConsumeHoney(HONNEY_PER_UNASSIGNED_WORKER * workers.Length);
+                
             }
+            HoneyVault.ConsumeHoney(HONNEY_PER_UNASSIGNED_WORKER * workers.Length);
+            UpDateStatusReport();
         }
 
 
-        public override float CostPerShift { get { return 2.17f; }  }
-        public Queen(string job) : base("Queen")
+        public override float CostPerShift { get { return 2.15f; }  }
+        public Queen() : base("Queen")
         {
-            for (int i = 0; i < 2; i++) 
-            {
-                if (i ==0 )
+         
                 AssignBee("Egg care");
-                else if (i == 1)
                 AssignBee("Nectar Collector");
-                else if (i == 2)
                 AssignBee("Honey Manufacturer");
-            }
+ 
         }
         
 
@@ -56,16 +55,45 @@ namespace Beehive_menagement_system
             switch (job)
             {
                 case "Egg care":
-                    AddWorker(new EggCare(this.Job));
+                    AddWorker(new EggCare(this));
                     break;
                 case "Nectar Collector":
-                    AddWorker(new NectarCollector(this.Job));
+                    AddWorker(new NectarCollector());
                     break;
                 case "Honey Manufacturer":
-                    AddWorker(new HoneyManufacturer(this.Job));
+                    AddWorker(new HoneyManufacturer());
                     break;
             }
+            UpDateStatusReport();
 
+        }
+        private void UpDateStatusReport()
+        {
+            StatusReport = $"Vault report:\n{HoneyVault.StatusReport}\n" +
+                $"\nEgg count: {eggs: 0.0}\nUnassigned workers: {unassignedWorkers: 0.0}\n" +
+                $"\n{WorkerStatus("Nectar Collector")}" +
+                $"\n{WorkerStatus("Honey Manufacturer")}" +
+                $"\n{WorkerStatus("Egg Care")}" +
+                $"\nTOTAL WORKERS: {workers.Length}";
+        }
+
+        private string WorkerStatus  (string job)
+        {
+            int count = 0;
+            foreach (Bee worker in workers)
+                if (worker.Job == job) count++;
+            string s = "s";
+            if (count == 1) s = "";
+            return $"{count} {job} bee{s}";
+        }
+
+        public void CareForEggs(float eggsToConvert)
+        {
+            if (eggs >= eggsToConvert)
+            {
+                eggs -= eggsToConvert;
+                unassignedWorkers += eggsToConvert;
+            }
         }
 
     }

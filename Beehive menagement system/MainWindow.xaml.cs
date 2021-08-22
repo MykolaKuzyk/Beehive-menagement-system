@@ -20,9 +20,11 @@ namespace Beehive_menagement_system
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Queen queen = new Queen();
         public MainWindow()
         {
             InitializeComponent();
+            statusReport.Text = queen.StatusReport;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
