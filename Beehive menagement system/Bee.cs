@@ -20,9 +20,9 @@ namespace Beehive_menagement_system
             /// - fillin
         }
 
-        public void WorkTheNextShift(float HoneyConsumed)
+        public void WorkTheNextShift()
         {
-            if (HoneyVault.ConsumeHoney(HoneyConsumed))
+            if (HoneyVault.ConsumeHoney(CostPerShift))
             {
                 DoJob();
             }

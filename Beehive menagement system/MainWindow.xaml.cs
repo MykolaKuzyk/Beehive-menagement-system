@@ -36,5 +36,20 @@ namespace Beehive_menagement_system
         {
 
         }
+
+
+
+
+        private void assign_job_button_Click_1(object sender, RoutedEventArgs e)
+        {
+            queen.AssignBee(jobSelector.Text);
+            statusReport.Text = queen.StatusReport;
+        }
+
+        private void work_button_Click_1(object sender, RoutedEventArgs e)
+        {
+            queen.WorkTheNextShift();
+            statusReport.Text = queen.StatusReport;
+        }
     }
 }

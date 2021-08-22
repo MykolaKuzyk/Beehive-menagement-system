@@ -9,7 +9,7 @@ namespace Beehive_menagement_system
     class Queen : Bee
     {
         private Bee[] workers = new Bee[0];
-        private float unassignedWorkers = 3;
+        private float unassignedWorkers = 4;
         private float eggs = 0;
         const float EGGS_PER_SHIFT = 0.45f;
         const float HONNEY_PER_UNASSIGNED_WORKER = 0.5f;
@@ -20,7 +20,7 @@ namespace Beehive_menagement_system
             foreach (Bee worker in workers)
             {
 
-                WorkTheNextShift(this.CostPerShift);
+                worker.WorkTheNextShift();
                 
             }
             HoneyVault.ConsumeHoney(HONNEY_PER_UNASSIGNED_WORKER * workers.Length);
@@ -48,6 +48,19 @@ namespace Beehive_menagement_system
                 Array.Resize(ref workers, workers.Length + 1);
                 workers[workers.Length - 1] = worker;
             }
+            else
+            {
+                UpDateStatusReport();
+            }
+
+        }
+        public void CheckNumberOfUnassigned()
+        {
+            if (unassignedWorkers <= 0.0)
+            {
+                StatusReport += "\nNo more free bees ";
+
+            }
         }
 
         public void AssignBee(string job)
@@ -56,27 +69,35 @@ namespace Beehive_menagement_system
             {
                 case "Egg care":
                     AddWorker(new EggCare(this));
+                    UpDateStatusReport();
                     break;
                 case "Nectar Collector":
                     AddWorker(new NectarCollector());
+                    UpDateStatusReport();
                     break;
                 case "Honey Manufacturer":
                     AddWorker(new HoneyManufacturer());
+                    UpDateStatusReport();
                     break;
             }
-            UpDateStatusReport();
+            
+
+
 
         }
         private void UpDateStatusReport()
         {
+
+            
             StatusReport = $"Vault report:\n{HoneyVault.StatusReport}\n" +
                 $"\nEgg count: {eggs: 0.0}\nUnassigned workers: {unassignedWorkers: 0.0}\n" +
                 $"\n{WorkerStatus("Nectar Collector")}" +
                 $"\n{WorkerStatus("Honey Manufacturer")}" +
                 $"\n{WorkerStatus("Egg Care")}" +
                 $"\nTOTAL WORKERS: {workers.Length}";
-        }
+                CheckNumberOfUnassigned();
 
+        }
         private string WorkerStatus  (string job)
         {
             int count = 0;

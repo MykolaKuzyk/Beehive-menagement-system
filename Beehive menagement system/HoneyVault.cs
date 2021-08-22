@@ -45,7 +45,7 @@ namespace Beehive_menagement_system
             }
             else
             {
-                honey = amount * NECTAR_CONVERSION_RATIO;
+                honey += nectarToConvert * NECTAR_CONVERSION_RATIO;
             }
             return honey;
         }
@@ -56,13 +56,14 @@ namespace Beehive_menagement_system
         /// <returns></returns>
         public static bool ConsumeHoney(float amount)
         {
-            if (amount >= honey)
+            if (honey >= amount)
             {
                 honey -= amount;
                 return true;
             }
             else
             {
+                Debug.WriteLine("nothing to add");
                 return false;
             }
         }
