@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Beehive_menagement_system
 {
@@ -20,11 +21,18 @@ namespace Beehive_menagement_system
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer timer = new DispatcherTimer();
         private Queen queen = new Queen();
         public MainWindow()
         {
             InitializeComponent();
             statusReport.Text = queen.StatusReport;
+
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            work_button_Click_1(this, new RoutedEventArgs());
+            ProgreesBar.Value += 1.5;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -50,6 +58,24 @@ namespace Beehive_menagement_system
         {
             queen.WorkTheNextShift();
             statusReport.Text = queen.StatusReport;
+        }
+
+
+        private void ProgreesBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+ 
+        
+            
+        }
+
+        private void ProgreesBar_Initialized(object sender, EventArgs e)
+        {
+            
+            timer.Tick += Timer_Tick;
+            timer.Interval = TimeSpan.FromSeconds(1.5);
+            timer.Start();
+
+         
         }
     }
 }
