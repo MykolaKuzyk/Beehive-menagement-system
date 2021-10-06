@@ -8,7 +8,7 @@ namespace Beehive_menagement_system
 {
     class Queen : Bee
     {
-        private Bee[] workers = new Bee[0];
+        private IWorker[] workers = new IWorker[0];
         private float unassignedWorkers = 4;
         private float eggs = 0;
         const float EGGS_PER_SHIFT = 0.45f;
@@ -17,7 +17,7 @@ namespace Beehive_menagement_system
         protected override void DoJob()
         {
             eggs += EGGS_PER_SHIFT;
-            foreach (Bee worker in workers)
+            foreach (IWorker worker in workers)
             {
 
                 worker.WorkTheNextShift();
@@ -101,7 +101,7 @@ namespace Beehive_menagement_system
         private string WorkerStatus  (string job)
         {
             int count = 0;
-            foreach (Bee worker in workers)
+            foreach (IWorker worker in workers)
                 if (worker.Job == job) count++;
             string s = "s";
             if (count == 1) s = "";

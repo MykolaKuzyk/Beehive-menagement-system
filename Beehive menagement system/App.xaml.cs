@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace IWorkerhive_menagement_system
+namespace Beehive_menagement_system
 {
     /// <summary>
     /// Interaction logic for App.xaml

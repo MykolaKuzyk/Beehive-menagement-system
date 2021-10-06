@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace IWorkerhive_menagement_system.Properties
+namespace Beehive_menagement_system.Properties
 {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
@@ -43,7 +43,7 @@ namespace IWorkerhive_menagement_system.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IWorkerhive_menagement_system.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Beehive_menagement_system.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
