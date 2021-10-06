@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Beehive_menagement_system
 {
-    class Bee 
+    class Bee : IWorker
     {
-        public  string  Job { get; private set; }
+        public  string  Job { get;  set; }
         public virtual float CostPerShift { get; }
 
         public Bee(string job)
