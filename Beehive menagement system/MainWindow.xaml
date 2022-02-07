@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:Beehive_menagement_system"
         mc:Ignorable="d"
         Title="Beehive Menagement system " Height="325" Width="625">
-    <Grid>
+    <Window.Resources>
+        <local:Queen x:Key="queen"/>
+    </Window.Resources>
+    
+    <Grid DataContext="{StaticResource queen}">
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="321*"/>
             <ColumnDefinition Width="296*"/>
@@ -26,7 +31,7 @@
             <ListBoxItem Content="Honey Manufacturer"/>
             <ListBoxItem Content="Egg Care"/>
         </ComboBox>
-        <TextBox x:Name="statusReport" Grid.Column="1" HorizontalAlignment="Left" Height="214" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="269" Grid.RowSpan="2" TextChanged="TextBox_TextChanged" IsReadOnly="True"/>
+        <TextBox Text="{Binding StatusReport, Mode=OneWay}"  x:Name="statusReport" Grid.Column="1" HorizontalAlignment="Left" Height="214" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="269" Grid.RowSpan="2" TextChanged="TextBox_TextChanged" IsReadOnly="True"/>
         <ProgressBar x:Name="ProgreesBar" HorizontalAlignment="Left" Height="28" Margin="10,119,0,0" Grid.Row="1" VerticalAlignment="Top" Width="301" ValueChanged="ProgreesBar_ValueChanged" Initialized="ProgreesBar_Initialized"/>
     </Grid>
 </Window>

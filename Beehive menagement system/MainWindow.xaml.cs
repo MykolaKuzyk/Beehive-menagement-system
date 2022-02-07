@@ -22,11 +22,12 @@ namespace Beehive_menagement_system
     public partial class MainWindow : Window
     {
         private DispatcherTimer timer = new DispatcherTimer();
-        private Queen queen = new Queen();
+        private readonly Queen queen;
         public MainWindow()
         {
             InitializeComponent();
-            statusReport.Text = queen.StatusReport;
+            //Commented due to change XAML textBox prop.//statusReport.Text = queen.StatusReport;
+            queen = Resources["queen"] as Queen;
 
         }
         private void Timer_Tick(object sender, EventArgs e)
@@ -51,13 +52,13 @@ namespace Beehive_menagement_system
         private void assign_job_button_Click_1(object sender, RoutedEventArgs e)
         {
             queen.AssignBee(jobSelector.Text);
-            statusReport.Text = queen.StatusReport;
+            //Commented due to change XAML textBox prop.//statusReport.Text = queen.StatusReport;
         }
 
         private void work_button_Click_1(object sender, RoutedEventArgs e)
         {
             queen.WorkTheNextShift();
-            statusReport.Text = queen.StatusReport;
+            //Commented due to change XAML textBox prop.//statusReport.Text = queen.StatusReport; 
         }
 
 

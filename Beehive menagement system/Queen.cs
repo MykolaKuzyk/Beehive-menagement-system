@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Beehive_menagement_system
 {
-    class Queen : Bee
+    class Queen : Bee, INotifyPropertyChanged
     {
         private IWorker[] workers = new IWorker[0];
         private float unassignedWorkers = 4;
         private float eggs = 0;
         const float EGGS_PER_SHIFT = 0.45f;
         const float HONNEY_PER_UNASSIGNED_WORKER = 0.5f;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         public string StatusReport { get; private set; }
         protected override void DoJob()
         {
@@ -26,8 +34,6 @@ namespace Beehive_menagement_system
             HoneyVault.ConsumeHoney(HONNEY_PER_UNASSIGNED_WORKER * workers.Length);
             UpDateStatusReport();
         }
-
-
         public override float CostPerShift { get { return 2.15f; }  }
         public Queen() : base("Queen")
         {
@@ -37,9 +43,6 @@ namespace Beehive_menagement_system
                 AssignBee("Honey Manufacturer");
  
         }
-        
-
-
         private void AddWorker(Bee worker)
         {
             if (unassignedWorkers >= 1)
@@ -62,7 +65,6 @@ namespace Beehive_menagement_system
 
             }
         }
-
         public void AssignBee(string job)
         {
             switch (job)
@@ -80,10 +82,7 @@ namespace Beehive_menagement_system
                     UpDateStatusReport();
                     break;
             }
-            
-
-
-
+           
         }
         private void UpDateStatusReport()
         {
@@ -96,6 +95,7 @@ namespace Beehive_menagement_system
                 $"\n{WorkerStatus("Egg Care")}" +
                 $"\nTOTAL WORKERS: {workers.Length}";
                 CheckNumberOfUnassigned();
+                OnPropertyChanged("Status report");
 
         }
         private string WorkerStatus  (string job)
